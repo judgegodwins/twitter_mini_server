@@ -1,7 +1,7 @@
 import ImageRepo from "../../database/repositories/ImageRepo";
 import TweetRepo from "../../database/repositories/TweetRepo";
 import { validateCloudinaryPublicIds, wrapServiceAction } from "../../utils";
-import { CreateTweetRequest } from "../../validators/tweet";
+import { CreateTweetRequest } from "../../validators";
 
 export default wrapServiceAction({
   schema: CreateTweetRequest,

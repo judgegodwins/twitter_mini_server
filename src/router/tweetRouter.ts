@@ -4,9 +4,10 @@ import { AuthenticatedRequest } from '../types/requests';
 
 const router = express.Router();
 
-router.use((req: AuthenticatedRequest, res) => { req.session = { userId: '162d80e0-1b1d-4f04-9142-068b7312c02a' } });
+router.use((req: AuthenticatedRequest, res, next) => { req.session = { userId: '162d80e0-1b1d-4f04-9142-068b7312c02a' }; next() });
 
 router.get('/get/:id', TweetController.getTweet);
+router.get('/feed', TweetController.getFeed);
 router.post('/', TweetController.createTweet);
 router.post('/retweet', TweetController.retweet);
 router.post('/comments/create', TweetController.comment);

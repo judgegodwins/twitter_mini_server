@@ -13,14 +13,14 @@ export class GetResourceRequest {
 }
 
 export class PaginationRequest {
+  @IsNotEmpty()
   @IsInt()
   @Min(1)
-  @IsNotEmpty()
   page: number;
 
+  @IsOptional()
   @IsInt()
   @Min(1)
-  @IsOptional()
   limit = 10;
 }
 

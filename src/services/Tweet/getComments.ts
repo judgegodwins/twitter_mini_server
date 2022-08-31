@@ -13,9 +13,19 @@ export default wrapServiceAction({
 
     const offset = calcSkip(params.page, params.limit);
 
-    const comments = await TweetRepo.getComments(tweet.id, offset, params.limit);
+    const comments = await TweetRepo.getComments(
+      tweet.id,
+      offset,
+      params.limit
+    );
 
-    // Sequelize has a type (buggy) issue with count
-    return paginateResponse(comments.rows, ((comments.count as unknown) as any[]).length, params.page, params.limit);
+    // Sequelize has a type (buggy) issue with using GROUP BY in findAndCountAll calls
+    // https://github.com/sequelize/sequelize/issues/6148
+    return paginateResponse(
+      comments.rows,
+      (comments.count as unknown as any[]).length,
+      params.page,
+      params.limit
+    );
   },
 });

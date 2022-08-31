@@ -95,6 +95,15 @@ export default class TweetRepo {
     return Tweet.findByPk(id, this._getStatsQuery('Tweet', 'id'));
   }
 
+  static getTweets(offset: number, limit: number) {
+    return Tweet.findAndCountAll({
+      ...this._getStatsQuery('Tweet'),
+      offset,
+      limit,
+      subQuery: false
+    });
+  }
+
   static async getStats(tweet: Tweet): Promise<TweetWithStats> {
     return {
       ...tweet.toJSON(),

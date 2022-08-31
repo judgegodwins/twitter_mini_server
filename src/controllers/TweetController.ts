@@ -16,6 +16,15 @@ export default class TweetController {
     return new SuccessResponse("Tweet", tweet).send(res);
   });
 
+  static getFeed = asyncHandler(async (req, res) => {
+    const tweets = await TweetService.getFeed({
+      page: +(req.query.page as string),
+      limit: +(req.query.limit as string),
+    });
+
+    return new PaginationResponse("Feed", tweets).send(res);
+  });
+
   static retweet = asyncHandler(async (req, res) => {
     const tweet = await TweetService.retweet({
       type: req.query.type as any,
